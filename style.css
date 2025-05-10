@@ -1,0 +1,671 @@
+/* --- Biến màu theo yêu cầu --- */
+:root {
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-charcoal: #2C2C2C; /* Xám than */
+    --color-dark-gray: #333333; /* Xám đậm hơn cho chữ, dễ đọc hơn */
+    --color-light-gray: #F8F8F8; /* Xám rất nhạt cho nền, tinh tế hơn #F4F4F4 */
+    --color-medium-gray: #757575; /* Xám ghi, điều chỉnh cho dễ đọc hơn A0A0A0 */
+    --color-border-light: #E0E0E0; /* Màu viền nhạt */
+    --color-coffee: #4B3621;
+    --color-navy: #1A1F71; /* Hoặc #22356F */
+    --color-gold: #C49E65; /* Vàng đồng */
+    --color-burgundy: #800020;
+    --color-olive: #556B2F;
+    --color-dark-teal: #003333;
+
+    /* Font */
+    --font-primary: 'Playfair Display', serif; /* Cho tiêu đề */
+    --font-secondary: 'Roboto', sans-serif; /* Cho nội dung */
+
+    /* Timing Transitions */
+    --transition-speed: 0.3s;
+}
+
+/* --- Reset & Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-secondary);
+    line-height: 1.8;
+    color: var(--color-dark-gray);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Ngăn cuộn ngang không mong muốn */
+}
+
+.container {
+    width: 88%; /* Điều chỉnh nhẹ */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: px 15px; /* Thêm padding ngang cho container */
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    color: var(--color-navy);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px; /* Giảm nhẹ letter-spacing */
+    line-height: 1.3;
+}
+
+h1 { font-size: clamp(2.5em, 5vw, 3.5em); } /* Responsive font size */
+h2 {
+    font-size: clamp(2em, 4vw, 2.8em); /* Responsive font size */
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 20px;
+}
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background-color: var(--color-gold);
+    border-radius: 2px; /* Bo tròn nhẹ đường gạch */
+}
+
+h3 { font-size: clamp(1.5em, 3vw, 1.8em); }
+p { margin-bottom: 1.5rem; }
+a {
+    text-decoration: none;
+    color: var(--color-navy);
+    transition: color var(--transition-speed) ease;
+}
+a:hover {
+    color: var(--color-gold);
+    text-decoration: none; /* Bỏ gạch chân khi hover, trừ khi được chỉ định riêng */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* --- Header & Navigation --- */
+header {
+    background-color: var(--color-charcoal);
+    color: var(--color-white);
+    padding: 1rem 0; /* Giảm nhẹ padding */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-family: var(--font-primary);
+    font-size: clamp(1.5em, 3vw, 2em);
+    font-weight: bold;
+    color: var(--color-gold);
+    letter-spacing: 1.5px;
+    text-decoration: none !important; /* Đảm bảo logo là link không gạch chân */
+}
+nav ul { list-style: none; display: flex; align-items: center; }
+nav ul li { margin-left: 25px; }
+nav ul li a {
+    color: var(--color-white);
+    font-weight: 400;
+    font-size: 1em; /* Điều chỉnh */
+    letter-spacing: 0.5px;
+    padding: 8px 5px; /* Thêm padding ngang */
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+nav ul li a:hover,
+nav ul li a.active { /* Class .active cần JS để thêm vào khi cuộn đến section */
+    color: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+}
+
+/* --- Hero Section --- */
+#hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url('images/Screenshot\ 2025-05-10\ 131302(1)(1).png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    min-height: 76vh; /* Giảm nhẹ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    padding: 80px 10px; /* Thêm padding cho nội dung không sát viền */
+}
+.hero-content h1 {
+    font-family: 'Playfair Display', serif; /* Đảm bảo font được áp dụng */
+    font-weight: 700; /* Hoặc 800, 900 nếu font hỗ trợ và bạn muốn đậm hơn */
+    font-size: clamp(2.8em, 6vw, 4.5em); /* Tăng kích thước một chút để nổi bật hơn */
+    color: #F0EAD6; /* Một màu kem/be nhạt, bạn cần chọn màu phù hợp nhất với monogram */
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: 1px; /* Có thể tăng nhẹ nếu muốn */
+    text-transform: uppercase; /* Chữ HOA cho tiêu đề chính có thể tăng sự trang trọng và nổi bật */
+
+    /* Hiệu ứng nổi khối và bóng đổ phức tạp hơn */
+    text-shadow:
+        1px 1px 0px rgba(0, 0, 0, 0.2), /* Viền tối rất mảnh giả */
+        2px 2px 0px rgba(0, 0, 0, 0.2), /* Lớp viền thứ 2 */
+        3px 3px 0px rgba(0, 0, 0, 0.15),/* Lớp viền thứ 3 */
+        4px 4px 8px rgba(0, 0, 0, 0.4); /* Bóng đổ chính, mềm hơn */
+    
+    margin-bottom: 1rem; /* Giảm nhẹ margin dưới để p gần hơn */
+    padding: 0 10px; /* Đảm bảo không bị sát viền màn hình nhỏ */
+}
+
+.hero-content p {
+    font-family: 'Montesori', sans-serif;
+    font-size: clamp(1.1em, 2.8vw, 1.4em); /* Tăng kích thước chữ p */
+    color: #E0D8C0; /* Màu kem/be nhạt hơn hoặc cùng tông với H1 nhưng có thể giảm opacity nhẹ */
+    /* opacity: 0.9; */ /* Nếu muốn chữ p hơi mờ hơn h1 một chút */
+    line-height: 1.7;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Bóng đổ nhẹ cho dễ đọc */
+    margin-bottom: 2.5rem;
+    max-width: 700px; /* Tăng max-width một chút */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+
+}
+.cta-button {
+    display: inline-block;
+    background-color: var(--color-gold);
+    color: var(--color-charcoal) !important;
+    padding: 14px 30px; /* Điều chỉnh */
+    font-size: 1em; /* Điều chỉnh */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 6px; /* Điều chỉnh */
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Điều chỉnh */
+    transition: all var(--transition-speed) ease;
+    text-decoration: none !important;
+}
+.cta-button:hover {
+    background-color: var(--color-navy);
+    color: var(--color-white) !important;
+    transform: translateY(-2px) scale(1.02); /* Điều chỉnh */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Điều chỉnh */
+}
+
+ /* --- Sections on Homepage --- */
+ section {
+    padding: 80px 0; /* Điều chỉnh */
+    opacity: 0;
+    transform: translateY(20px); /* Giảm nhẹ */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out
+}
+section.is-visible { opacity: 1; transform: translateY(0); }
+section:nth-child(odd) { background-color: var(--color-white) }
+section:nth-child(even) { background-color: var(--color-light-gray);padding-top: 30px; }
+
+
+/* About/Introduction Section */
+.about-content { display: flex; flex-wrap: wrap; align-items: center; gap: 40px }
+.about-image { flex: 1 1 400px; /* Cho phép co giãn nhưng có basis */ }
+.about-image img { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
+.about-text {text-align: justify; text-indent: 2em;margin-bottom: 1em; flex: 1 1 500px; padding:20px }
+
+/* History Section */
+.history-timeline .timeline-item { display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 50px; align-items: center; }
+.history-timeline .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+.history-timeline .timeline-image { flex: 1 1 350px; } 
+.history-timeline .timeline-item:nth-child(2) .timeline-image {flex: 1 1 450px;}
+.history-timeline .timeline-image img { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; }
+.history-timeline .timeline-image a:hover img { transform: scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+.history-timeline .timeline-content { flex: 1 1 450px; }
+.history-timeline .timeline-content h3 {
+    color: var(--color-coffee);
+    font-size: clamp(1.4em, 2.8vw, 1.6em);
+    margin-bottom: 0.8rem;
+}
+a.timeline-item-link-title { text-decoration: none; color: inherit; }
+a.timeline-item-link-title:hover { color: var(--color-gold); text-decoration: underline;}
+.details-button-small {
+    display: inline-block;
+    background-color: var(--color-navy);
+    color: var(--color-white) !important;
+    padding: 8px 16px; /* Điều chỉnh */
+    font-size: 0.85em; /* Điều chỉnh */
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+    text-decoration: none !important;
+    margin-top: 10px;
+    font-weight: 500;
+}
+.details-button-small:hover {
+    background-color: var(--color-gold);
+    color: var(--color-charcoal) !important;
+    transform: translateY(-2px);
+}
+
+/* Collections/Styles Section */
+.collection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; } /* Điều chỉnh minmax */
+.collection-item {
+    background-color: var(--color-white);
+    padding: 25px; /* Điều chỉnh */
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-light); /* Thêm viền nhẹ */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Điều chỉnh */
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    display: flex; /* Giúp căn chỉnh nội dung bên trong */
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy nút xuống dưới */
+}
+.collection-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.collection-item img { margin-bottom: 15px; border-bottom: 4px solid var(--color-navy); }
+.collection-item h3 { color: var(--color-charcoal); margin-top: 10px; margin-bottom: 10px; font-size: clamp(1.3em, 2.5vw, 1.5em); }
+.collection-item p { font-size: 0.9em; color: var(--color-medium-gray); margin-bottom: 15px; flex-grow: 1; /* Cho phép p co giãn */ }
+a.collection-item-link-image, a.collection-item-link-title { text-decoration: none; color: inherit; }
+a.collection-item-link-title:hover { color: var(--color-gold); }
+.details-button { /* Dùng chung cho các nút "Tìm hiểu chi tiết" */
+    display: inline-block;
+    background-color: var(--color-navy);
+    color: var(--color-white) !important;
+    padding: 10px 20px; /* Điều chỉnh */
+    font-size: 0.9em; /* Điều chỉnh */
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+    text-decoration: none !important;
+    margin-top: auto; /* Đẩy nút xuống dưới nếu collection-item là flex */
+    font-weight: 500;
+}
+.details-button:hover {
+    background-color: var(--color-gold);
+    color: var(--color-charcoal) !important;
+    transform: translateY(-2px);
+}
+
+/* Details/Services Section */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; }
+a.service-item-link { text-decoration: none; color: inherit; display: block; }
+.service-item {
+    background-color: var(--color-white);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+a.service-item-link:hover .service-item { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.service-item img, .service-item i { margin: 0 auto 15px auto; display: block; width: 60px; height: 60px; object-fit: contain; } /* Kích thước icon */
+.service-item h3 { color: var(--color-charcoal); margin-bottom: 0.8rem; font-size: clamp(1.2em, 2.2vw, 1.4em); }
+.service-item p { font-size: 0.9em; color: var(--color-medium-gray); }
+
+/* Contact Section */
+#contact form { max-width: 650px; margin: 30px auto; display: grid; grid-template-columns: 1fr; gap: 18px; }
+#contact form input,
+#contact form textarea {
+    width: 100%; padding: 14px; border: 1px solid var(--color-border-light); border-radius: 6px;
+    font-family: var(--font-secondary); font-size: 0.95em;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+#contact form input:focus,
+#contact form textarea:focus {
+    outline: none; border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px rgba(196, 158, 101, 0.25); /* Điều chỉnh shadow */
+}
+#contact form textarea { resize: vertical; min-height: 140px; }
+#contact form button.cta-button { justify-self: center; width: auto; min-width: 180px; }
+.contact-info { text-align: center; margin-top: 40px; font-size: 1.05em; }
+.contact-info p { margin-bottom: 0.7rem; }
+
+/* --- Footer --- */
+footer { background-color: var(--color-black); color: var(--color-medium-gray); text-align: center; padding: 35px 0; font-size: 0.9em; }
+footer p { margin-bottom: 0.7rem; line-height: 1.6; }
+footer a { color: var(--color-gold); text-decoration: none; }
+footer a:hover { color: var(--color-white); text-decoration: underline; }
+
+/* --- Detail Page Specific Styles --- */
+.detail-page {
+    background-color: var(--color-white); /* Đảm bảo có màu nền */
+}
+.full-width-image-section {
+    position: relative; text-align: center; color: rgb(255, 255, 255) ;
+    height: clamp(350cpx, 45vh, 500px); /* Responsive height */
+    overflow: hidden;
+}
+.full-width-image-section img { width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 0; padding-bottom: 0px; }
+.image-overlay-title {
+    position: absolute;
+    top: 50%; /* Điều chỉnh nếu cần vị trí khác cho trang Ý */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Điều chỉnh độ mờ nếu muốn */
+    padding: 18px 35px; /* Điều chỉnh padding nếu muốn */
+    border-radius: 5px;
+    width: auto;
+    max-width: 90%;
+    text-align: center;/* Không quá rộng trên màn hình lớn */
+}
+.image-overlay-title h1 {
+    color: var(--color-white);
+    font-size: clamp(1.8em, 4vw, 2.8em); /* Responsive */
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+#detail-main-content.container {
+    padding-top: 50px; padding-bottom: 50px; display: flex; flex-wrap: wrap; gap: 35px;
+}
+.content-column { flex: 2.5; min-width: 0; /* Quan trọng cho flexbox overflow */ }
+.sidebar-column { flex: 1; min-width: 260px; align-self: flex-start; position: sticky; top: calc(1rem + 60px); /* Khoảng cách header + padding */ }
+.content-column h2 {
+    font-size: clamp(1.6em, 3.5vw, 2.2em);
+    color: var(--color-charcoal); margin-top: 25px; margin-bottom: 15px;
+    text-align: left; padding-bottom: 10px; border-bottom: 2px solid var(--color-gold);
+}
+.content-column h2:first-child { margin-top: 0; }
+.content-column h2::after { display: none; } /* Bỏ ::after của h2 chung */
+.content-column p, .content-column ul, .content-column ol { margin-bottom: 1.3rem; line-height: 1.85; }
+.content-column ul, .content-column ol { padding-left: 25px; }
+.content-column ul li, .content-column ol li { margin-bottom: 0.6rem; }
+.content-column strong { color: var(--color-navy); font-weight: 600; /* Đậm hơn chút */ }
+.inline-image { margin: 1.5rem 0; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.sidebar-widget { background-color: var(--color-light-gray); padding: 20px; border-radius: 6px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.sidebar-widget h3, .sidebar-widget h4 {
+    font-family: var(--font-secondary); font-size: 1.2em; /* Điều chỉnh */
+    color: var(--color-navy); margin-bottom: 12px; font-weight: 600;
+}
+.sidebar-widget ul { list-style: none; padding-left: 0; }
+.sidebar-widget ul li a {
+    color: var(--color-dark-gray); display: block; padding: 7px 0;
+    border-bottom: 1px dotted #ccc; font-size: 0.9em; /* Điều chỉnh */
+}
+.sidebar-widget ul li:last-child a { border-bottom: none; }
+.sidebar-widget ul li a:hover { color: var(--color-gold); }
+
+#detail-gallery { padding-top: 30px; } /* Giảm padding nếu không có h2 */
+#detail-gallery h2 { text-align: center; margin-bottom: 30px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.gallery-grid img {
+    width: 100%; height: 300px; /* Điều chỉnh */
+    object-fit: cover; border-radius: 6px;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.gallery-grid img:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+/* --- Responsive --- */
+@media (max-width: 992px) { /* Tablet */
+    .container { width: 92%; }
+    nav ul li { margin-left: 15px; } /* Giảm khoảng cách menu */
+    .sidebar-column,.italian-sidebar-column { position: static; min-width: 100%; margin-top: 30px; }
+    .image-overlay-title h1 { font-size: clamp(1.6em, 3.5vw, 2.5em); }
+    .content-column,.italian-article-column { flex-basis: 100%; } /* Nội dung chiếm full khi sidebar xuống dòng */
+}
+@media (max-width: 768px) { /* Mobile lớn và Tablet nhỏ */
+    header .container { flex-direction: column; text-align: center; }
+    nav ul { margin-top: 10px; flex-wrap: wrap; justify-content: center; padding-left: 0; }
+    nav ul li { margin: 5px 8px; }
+    #hero { min-height: auto; padding: 60px 15px; background-attachment: scroll; }
+    section { padding: 60px 0; }
+    .about-content,
+    .history-timeline .timeline-item,
+    .history-timeline .timeline-item:nth-child(even) { flex-direction: column; text-align: center; }
+    .about-image,
+    .history-timeline .timeline-image { max-width: 70%; margin: 0 auto 20px auto; }
+    .collection-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .services-grid { grid-template-columns: 1fr; gap: 20px; }
+    .full-width-image-section { height: clamp(250px, 35vh, 350px); }
+    .image-overlay-title h1 { font-size: clamp(1.5em, 3vw, 2em); padding: 10px 20px; }
+    #detail-main-content.container { gap: 25px; }
+}
+@media (max-width: 480px) { /* Mobile nhỏ */
+    html { font-size: 15px; }
+    .container { padding: 0 10px; }
+    .cta-button, .details-button, .details-button-small { padding: 10px 20px; font-size: 0.9em; }
+    .details-button-small { padding: 8px 15px; font-size: 0.8em;}
+    .gallery-grid { grid-template-columns: 1fr; } /* Một cột */
+    nav ul li a { font-size: 0.95em; }
+}
+.content-column p, .italian-article-column p {
+    text-align: justify;
+    text-indent: 2em; /* Thụt đầu dòng 2 chữ */
+    margin-bottom: 1em; /* Cách đoạn dưới */
+}
+.full-width-image-section img {
+    width: 100vw;       /* Chiều ngang bằng 100% khung hình (viewport width) */
+    height: 70vh;       /* Chiều cao tự động để giữ tỷ lệ */
+    display: block;     /* Xóa khoảng trắng dưới ảnh */
+    margin: 0 auto;     /* Canh giữa nếu cần */
+}
+.collection-item-link-image img{width: 100% ; height: 30vh ;object-position: top   ;
+}
+.italian-article-column li, strong {
+text-align: left;
+text-indent: 2em;
+
+}
+
+/* --- Italian Style Page Specific Styles --- */
+
+.italian-title-overlay {
+    position: absolute;
+    top: 50%; /* Điều chỉnh nếu cần vị trí khác cho trang Ý */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Điều chỉnh độ mờ nếu muốn */
+    padding: 18px 35px; /* Điều chỉnh padding nếu muốn */
+    border-radius: 5px;
+    width: auto;
+    max-width: 90%;
+    text-align: center; /* Đảm bảo tiêu đề căn giữa trong overlay */
+}
+
+.italian-title-overlay h1 {
+    color: var(--color-white); /* Hoặc màu bạn muốn cho tiêu đề trang Ý */
+    font-size: clamp(1.8em, 4.5vw, 3em); /* Điều chỉnh kích thước nếu cần */
+    margin: 0;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.65); /* Điều chỉnh bóng đổ */
+}
+
+/* Main content section cho trang Ý - có thể dùng chung cấu trúc với #detail-main-content */
+#italian-main-content.container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+
+/* Article column cho trang Ý */
+.italian-article-column {
+    flex: 2.5; /* Tương tự .content-column */
+    min-width: 0;
+}
+
+/* Style chung cho h2, h3, p, ul, strong trong .italian-article-column */
+/* Bạn có thể tái sử dụng style của .content-column hoặc định nghĩa lại */
+.italian-article-column h2 {
+    font-size: clamp(1.6em, 3.5vw, 2.2em);
+    color: var(--color-charcoal); /* Hoặc màu đặc trưng cho trang Ý */
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-gold); /* Hoặc màu accent khác cho trang Ý */
+}
+.italian-article-column h2:first-child {
+    margin-top: 0;
+}
+/* Bỏ ::after của h2 chung nếu nó được kế thừa */
+.italian-article-column h2::after {
+    display: none;
+}
+
+.italian-article-column h3 { /* Cho các tiêu đề phụ như "Nhận Diện Một Bộ Suit Neapolitan" */
+    font-size: clamp(1.6em, 3.5vw, 2.2em);
+    color: var(--color-charcoal); /* Hoặc một màu khác */
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: none; /* Không cần gạch chân như h2 */
+    text-indent: 0; /* Bỏ thụt đầu dòng cho H3 nếu có kế thừa */
+    border-bottom: 2px solid var(--color-gold);
+    padding-bottom: 10px;
+}
+
+
+.italian-article-column p,
+.italian-article-column ul,
+.italian-article-column ol {
+    margin-bottom: 1.3rem;
+    line-height: 1.85;
+    text-align: justify; /* Đã có ở cuối file của bạn, đảm bảo áp dụng */
+    text-indent: 2em; /* Đã có ở cuối file của bạn, đảm bảo áp dụng cho p */
+}
+.italian-article-column ul,
+.italian-article-column ol {
+    padding-left: 25px; /* Hoặc 40px nếu muốn thụt vào nhiều hơn cho list */
+    text-indent: 0; /* Reset text-indent cho list items */
+}
+.italian-article-column ul li,
+.italian-article-column ol li {
+    margin-bottom: 0.6rem;
+    text-align: left; /* Đảm bảo list item căn trái */
+    text-indent: 0; /* Reset text-indent cho li */
+}
+.italian-article-column strong {
+    color: var(--color-navy); /* Hoặc màu nhấn mạnh khác */
+    font-weight: 600;
+    text-indent: 0; /* Strong không nên thụt đầu dòng */
+}
+
+/* Sidebar cho trang Ý */
+.italian-sidebar-column {
+    flex: 1; /* Tương tự .sidebar-column */
+    min-width: 260px;
+    align-self: flex-start;
+    position: sticky; /* Giữ lại nếu bạn muốn sidebar dính */
+    top: calc(1rem + 60px); /* Điều chỉnh top value nếu chiều cao header thay đổi */
+}
+
+.italian-widget {
+    background-color: var(--color-light-gray); /* Tương tự .sidebar-widget */
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.italian-widget h3, /* Tiêu đề widget trang Ý */
+.italian-widget h4 {
+    font-family: var(--font-secondary);
+    font-size: 1.2em;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-indent: 0; /* Widget title không thụt dòng */
+}
+.italian-widget ul {
+    list-style: none;
+    padding-left: 0;
+}
+.italian-widget ul li {
+    text-indent: 0; /* List item trong widget không thụt dòng */
+}
+.italian-widget ul li a {
+    color: var(--color-dark-gray);
+    display: block;
+    padding: 7px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 0.9em;
+}
+.italian-widget ul li:last-child a {
+    border-bottom: none;
+}
+.italian-widget ul li a:hover {
+    color: var(--color-gold);
+}
+/* CSS bạn đã thêm ở cuối file, tôi sẽ tích hợp và điều chỉnh lại một chút cho rõ ràng */
+.content-column p, /* Áp dụng cho Phong cách Anh */
+.italian-article-column p { /* Áp dụng cho Phong cách Ý */
+    text-align: justify;
+    text-indent: 2em; /* Thụt đầu dòng 2 chữ */
+    margin-bottom: 1em; /* Cách đoạn dưới */
+}
+/* Trong style.css */
+
+
+/* Article column cho trang Ý */
+.italian-widget {
+    background-color: var(--color-light-gray); /* Giữ nguyên màu nền xám nhạt */
+    padding: 20px;                             /* Giữ nguyên padding */
+    border-radius: 6px;                        /* Giữ nguyên bo góc */
+    margin-bottom: 20px;                       /* Giữ nguyên khoảng cách dưới */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);    /* Giữ nguyên bóng đổ */
+}
+
+/* Tiêu đề H3 và H4 bên trong widget của trang Ý */
+.italian-widget h3,
+.italian-widget h4 {
+    font-family: var(--font-secondary);     /* Giữ nguyên font */
+    font-size: 1.2em;                       /* Giữ nguyên kích thước chữ */
+    color: var(--color-navy);               /* Giữ nguyên màu chữ */
+    margin-bottom: 12px;                    /* Giữ nguyên khoảng cách dưới */
+    font-weight: 600;                       /* Giữ nguyên độ đậm */
+    text-indent: 0; /* Đảm bảo tiêu đề widget không bị thụt đầu dòng nếu có kế thừa */
+}
+
+/* Danh sách UL bên trong widget của trang Ý */
+.italian-widget ul {
+    list-style: none;                       /* Bỏ dấu đầu dòng mặc định */
+    padding-left: 0;                        /* Bỏ padding trái mặc định */
+}
+
+/* Các mục LI bên trong danh sách của widget trang Ý */
+.italian-widget ul li {
+    /* Không cần style đặc biệt ở đây trừ khi bạn muốn thêm margin/padding cho từng li */
+    text-indent: 0; /* Đảm bảo list item không bị thụt đầu dòng */
+}
+
+/* Liên kết A bên trong các mục LI của widget trang Ý */
+.italian-widget ul li a {
+    color: var(--color-dark-gray);          /* Giữ nguyên màu chữ cho link */
+    display: block;                         /* Để link chiếm toàn bộ chiều rộng của li, dễ click hơn */
+    padding: 7px 0;                         /* Giữ nguyên padding trên dưới cho link */
+    border-bottom: 1px dotted #ccc;         /* Đường gạch chân chấm dưới mỗi link */
+    font-size: 0.9em;                       /* Giữ nguyên kích thước chữ cho link */
+    text-decoration: none; /* Đảm bảo không có gạch chân mặc định, chỉ có border-bottom */
+}
+
+/* Loại bỏ đường gạch chân cho link cuối cùng trong danh sách */
+.italian-widget ul li:last-child a {
+    border-bottom: none;
+}
+
+/* Hiệu ứng khi hover vào link trong widget của trang Ý */
+.italian-widget ul li a:hover {
+    color: var(--color-gold);
+}
+.italian-width-image-section img {
+    width: 100vw;       /* Chiều ngang bằng 100% khung hình (viewport width) */
+    height: 70vh;       /* Chiều cao tự động để giữ tỷ lệ */
+    display: block;     /* Xóa khoảng trắng dưới ảnh */
+    margin: 0 auto; 
+    object-fit: cover; object-position: center; border-radius: 0; padding-bottom: 0px; 
+}
